@@ -1,0 +1,545 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>فرح حنان ووليد | Hanan & Walid Wedding</title>
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Amiri:ital,wght@0,400;0,700;1,400&family=Cairo:wght@300;400;600;700&family=Great+Vibes&display=swap" rel="stylesheet">
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            fontFamily: {
+              sans: ['Cairo', 'sans-serif'],
+              serif: ['Amiri', 'serif'],
+              script: ['Great Vibes', 'cursive'],
+            },
+            colors: {
+              gold: {
+                50: '#fbf7e8',
+                100: '#f5ecc6',
+                200: '#eddb94',
+                300: '#e4c55d',
+                400: '#dcb036',
+                500: '#c69424',
+                600: '#a6721b',
+                700: '#855614',
+              },
+              rose: {
+                50: '#fff1f2',
+                100: '#ffe4e6',
+                200: '#fecdd3',
+                300: '#fda4af',
+                400: '#fb7185',
+                500: '#f43f5e',
+              }
+            }
+          }
+        }
+      }
+    </script>
+
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <style>
+      /* Custom Animations */
+      @keyframes float {
+        0% { transform: translateY(0px) rotate(0deg); opacity: 0; }
+        50% { opacity: 1; }
+        100% { transform: translateY(-100vh) rotate(360deg); opacity: 0; }
+      }
+      .heart {
+        position: fixed;
+        bottom: -10vh;
+        color: rgba(253, 164, 175, 0.6);
+        animation: float linear infinite;
+        z-index: 0;
+        pointer-events: none;
+      }
+      
+      .fade-in-up {
+        opacity: 0;
+        transform: translateY(30px);
+        transition: opacity 1s ease-out, transform 1s ease-out;
+      }
+      .fade-in-up.visible {
+        opacity: 1;
+        transform: translateY(0);
+      }
+
+      .scale-in {
+        opacity: 0;
+        transform: scale(0.9);
+        transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+      }
+      .scale-in.visible {
+        opacity: 1;
+        transform: scale(1);
+      }
+
+      /* 3D Carousel */
+      .scene {
+        perspective: 1000px;
+        position: relative;
+        width: 260px;
+        height: 360px;
+        margin: 40px auto;
+      }
+      
+      .carousel {
+        width: 100%;
+        height: 100%;
+        position: absolute;
+        transform-style: preserve-3d;
+        animation: rotate 20s infinite linear;
+      }
+      
+      .carousel:hover {
+        animation-play-state: paused;
+      }
+
+      .carousel__cell {
+        position: absolute;
+        width: 240px;
+        height: 340px;
+        left: 10px;
+        top: 10px;
+        border-radius: 1rem;
+        overflow: hidden;
+        border: 4px solid white;
+        box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+        background: white;
+      }
+
+      /* 6 items = 360 / 6 = 60 degrees. TranslateZ = width / (2 * tan(60/2)) approx 240px */
+      .carousel__cell:nth-child(1) { transform: rotateY(0deg) translateZ(350px); }
+      .carousel__cell:nth-child(2) { transform: rotateY(60deg) translateZ(350px); }
+      .carousel__cell:nth-child(3) { transform: rotateY(120deg) translateZ(350px); }
+      .carousel__cell:nth-child(4) { transform: rotateY(180deg) translateZ(350px); }
+      .carousel__cell:nth-child(5) { transform: rotateY(240deg) translateZ(350px); }
+      .carousel__cell:nth-child(6) { transform: rotateY(300deg) translateZ(350px); }
+
+      @keyframes rotate {
+        from { transform: rotateY(0deg); }
+        to { transform: rotateY(360deg); }
+      }
+    </style>
+  </head>
+  <body class="bg-black font-sans overflow-x-hidden">
+    
+    <!-- Splash Screen -->
+    <div id="splash-screen" class="fixed inset-0 z-[100] flex flex-col items-center justify-center bg-black transition-opacity duration-1000">
+         <div class="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1519741497674-611481863552?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80')] bg-cover bg-center opacity-30"></div>
+      <div class="relative z-10 text-center px-4">
+        <p class="text-xl md:text-3xl text-white font-serif mb-3 fade-in-up">يسعدنا ويشرفنا حضوركم ومشاركتنا فرحتنا</p>
+        <p class="text-lg md:text-2xl text-gold-300 font-serif mb-8 fade-in-up" style="transition-delay: 200ms;">في حفل زفاف</p>
+        <h1 class="text-6xl md:text-8xl font-script text-white mb-12 drop-shadow-lg fade-in-up" style="transition-delay: 400ms;">Hanan & Walid</h1>
+        <button onclick="enterSite()" class="group relative inline-flex items-center justify-center px-8 py-4 text-lg md:text-xl font-bold text-white transition-all duration-200 bg-gold-500 font-serif rounded-full focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gold-500 hover:bg-gold-600 hover:scale-105 shadow-2xl border-2 border-gold-300 fade-in-up" style="transition-delay: 600ms;">
+          <span class="absolute inset-0 w-full h-full -mt-1 rounded-lg opacity-30 bg-gradient-to-b from-transparent via-transparent to-black"></span>
+          <span class="relative flex items-center gap-3">
+            <i data-lucide="mail-open" class="w-6 h-6 animate-bounce"></i>
+            افتح الدعوة
+          </span>
+        </button>
+      </div>
+    </div>
+
+    <!-- Main Content Wrapper -->
+    <div id="main-content" class="opacity-0 transition-opacity duration-1000 pointer-events-none">
+    
+    <!-- Floating Hearts Container -->
+    <div id="hearts-container"></div>
+
+    <!-- Music Player -->
+    <div class="fixed bottom-6 left-6 z-50">
+      <audio id="bg-music" loop src="public/music/WhatsApp Audio 2026-03-02 at 10.27.23 PM.mp4"></audio>
+      <button onclick="toggleMusic()" id="music-btn" class="bg-white/20 backdrop-blur-md hover:bg-white/40 text-white p-4 rounded-full shadow-xl border border-white/30 transition-all transform hover:scale-110 cursor-pointer">
+        <i data-lucide="volume-x" id="music-icon"></i>
+      </button>
+    </div>
+
+    <!-- Navigation -->
+    <nav class="fixed top-0 w-full z-50 transition-all duration-300" id="navbar">
+      <div class="absolute inset-0 bg-black/30 backdrop-blur-md"></div>
+      <div class="relative max-w-6xl mx-auto px-4 py-4 flex justify-between items-center">
+        <div class="text-2xl font-script text-gold-300">H & W</div>
+        <ul class="hidden md:flex gap-8 text-white font-serif">
+          <li><a href="#hero" class="hover:text-gold-300 transition-colors">الرئيسية</a></li>
+          <li><a href="#story" class="hover:text-gold-300 transition-colors">قصتنا</a></li>
+          <li><a href="#gallery" class="hover:text-gold-300 transition-colors">الصور</a></li>
+          <li><a href="#details" class="hover:text-gold-300 transition-colors">التفاصيل</a></li>
+        </ul>
+        <button class="md:hidden text-white" onclick="document.getElementById('mobile-menu').classList.toggle('hidden')">
+          <i data-lucide="menu"></i>
+        </button>
+      </div>
+      <!-- Mobile Menu -->
+      <div id="mobile-menu" class="hidden absolute top-full left-0 w-full bg-black/90 backdrop-blur-xl text-white text-center py-4 md:hidden">
+        <ul class="flex flex-col gap-4 font-serif">
+          <li><a href="#hero" onclick="document.getElementById('mobile-menu').classList.add('hidden')">الرئيسية</a></li>
+          <li><a href="#story" onclick="document.getElementById('mobile-menu').classList.add('hidden')">قصتنا</a></li>
+          <li><a href="#gallery" onclick="document.getElementById('mobile-menu').classList.add('hidden')">الصور</a></li>
+          <li><a href="#details" onclick="document.getElementById('mobile-menu').classList.add('hidden')">التفاصيل</a></li>
+        </ul>
+      </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <div id="hero" class="relative h-screen w-full flex flex-col items-center justify-center text-center px-4">
+      <!-- Background Image -->
+      <div class="absolute inset-0 z-0">
+        <div class="absolute inset-0 bg-gradient-to-b from-black/60 via-black/30 to-black/70 z-10"></div>
+        <img 
+          
+<img src="https://images.unsplash.com/photo-1519741497674-611481863552?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80">
+          alt="Hanan & Walid Formal" 
+          class="w-full h-full object-cover object-top"
+      
+        />
+      </div>
+      <style>
+
+
+.gallery{
+  display:flex;
+  justify-content:center;
+  flex-wrap:wrap;
+  gap:20px;
+  margin-top:40px;
+}
+
+.gallery img{
+  width:250px;
+  height:250px;
+  border-radius:20px;
+  box-shadow:0 10px 20px rgba(0,0,0,0.3);
+  transition:0.4s;
+  display:block;
+  margin:auto; /* يخلي الصورة في النص */
+}
+
+.gallery img:hover{
+  transform:scale(1.1);
+}
+
+
+
+
+</style>
+</head>
+
+
+      <!-- Content -->
+      <div class="relative z-20 max-w-4xl mx-auto fade-in-up" id="hero-content">
+        <h2 class="text-2xl md:text-3xl text-gold-100 mb-6 font-light tracking-wide">أهلاً بيكم في فرح أجمل عروسين</h2>
+        
+        <h1 class="text-7xl md:text-9xl font-script text-white mb-4 drop-shadow-2xl">
+          <span class="block md:inline">حنان</span>
+          <span class="text-gold-400 mx-4 text-5xl md:text-7xl">&</span>
+          <span class="block md:inline">وليد</span>
+        </h1>
+        
+        <div class="w-32 h-1 bg-gold-400 mx-auto my-8 rounded-full shadow-lg"></div>
+        
+        <p class="text-xl md:text-2xl text-white/90 font-serif mb-12">
+          نحتفل ببداية رحلتنا معاً
+          <br />
+          <span class="text-gold-200 mt-2 block">11 . 04 . 2026</span>
+        </p>
+
+        <!-- Countdown -->
+        <div class="flex justify-center flex-wrap mt-12 dir-rtl gap-4" id="countdown">
+          <!-- JS will populate this -->
+        </div>
+      </div>
+
+      <!-- Scroll Indicator -->
+      <div class="absolute bottom-8 left-1/2 transform -translate-x-1/2 z-20 text-white/70 animate-bounce">
+        <div class="flex flex-col items-center gap-2">
+          <span class="text-sm">انزل تحت</span>
+          <div class="w-6 h-10 border-2 border-white/30 rounded-full flex justify-center p-1">
+            <div class="w-1 h-2 bg-white rounded-full"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Story Section -->
+    <div id="story" class="relative min-h-screen w-full flex items-center justify-center bg-rose-50 py-20 px-4">
+      <div class="max-w-5xl w-full grid md:grid-cols-2 gap-12 items-center">
+        
+        <!-- Text Content -->
+        <div class="order-2 md:order-1 text-center md:text-right fade-in-up" id="story-text">
+          <h2 class="text-5xl md:text-6xl font-script text-gold-600 mb-6">قصة حبنا</h2>
+          <p class="text-xl text-gray-700 leading-loose font-serif mb-8">
+            "ومن آياته أن خلق لكم من أنفسكم أزواجاً لتسكنوا إليها وجعل بينكم مودة ورحمة"
+            <br /><br />
+            فرحتنا ما تكملش غير بوجودكم معانا.
+            <br />
+            مستنيينكم تنورونا وتشاركونا أحلى يوم في عمرنا.
+          </p>
+          <div class="inline-block border-2 border-gold-400 p-1 rounded-full">
+             <div class="bg-gold-50 px-8 py-3 rounded-full text-gold-700 font-bold">
+               قاعة السلام، نقابة المهندسين، 6 أكتوبر
+             </div>
+          </div>
+        </div>
+
+        <!-- Image Content -->
+        <div class="order-1 md:order-2 relative scale-in" id="story-image">
+          <div class="absolute inset-0 border-4 border-gold-300 rounded-3xl transform rotate-6 translate-x-4 translate-y-4 -z-10 bg-white"></div>
+          <div class="bg-white p-4 rounded-3xl shadow-2xl transform -rotate-2 hover:rotate-0 transition-transform duration-500">
+            <img 
+              src="public/images/2.jpg" 
+              alt="Hanan & Walid Casual" 
+              class="w-full h-auto rounded-2xl object-cover aspect-[3/4]"
+            />
+            <div class="text-center mt-4 font-script text-2xl text-gray-500">
+              أحلى أيام حياتنا
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- Gallery Section -->
+    <div id="gallery" class="py-20 bg-white px-4 overflow-hidden">
+      <div class="max-w-6xl mx-auto text-center">
+        <h2 class="text-5xl font-script text-gold-600 mb-12 fade-in-up">أجمل اللحظات</h2>
+        
+        <div class="scene fade-in-up">
+          <div class="carousel">
+            <div class="carousel__cell">
+              <img src="public/images/3.jpg" class="w-full h-full object-cover" alt="Gallery 1">
+            </div>
+            <div class="carousel__cell">
+              <img src="public/images/4.jpg" class="w-full h-full object-cover" alt="Gallery 2">
+            </div>
+            <div class="carousel__cell">
+              <img src="public/images/5.jpg" class="w-full h-full object-cover" alt="Gallery 3">
+            </div>
+            <div class="carousel__cell">
+              <img src="public/images/6.jpg" class="w-full h-full object-cover" alt="Gallery 4">
+            </div>
+            <div class="carousel__cell">
+              <img src="public/images/1.jpg" class="w-full h-full object-cover" alt="Gallery 5">
+            </div>
+            <div class="carousel__cell">
+              <img src="public/images/2.jpg" class="w-full h-full object-cover" alt="Gallery 6">
+            </div>
+          </div>
+        </div>
+        
+        <p class="text-gray-400 mt-12 text-sm font-serif animate-pulse">اسحب للتدوير أو اتركها تتحرك</p>
+      </div>
+    </div>
+
+    <!-- Details Section -->
+    <div id="details" class="py-20 bg-gold-50 px-4">
+      <div class="max-w-4xl mx-auto text-center fade-in-up">
+        <h2 class="text-5xl font-script text-gold-600 mb-12">تفاصيل الفرح</h2>
+        <div class="grid md:grid-cols-3 gap-8">
+          <div class="bg-white p-8 rounded-2xl shadow-xl border border-gold-100 transform hover:-translate-y-2 transition-transform">
+            <div class="w-16 h-16 bg-rose-100 rounded-full flex items-center justify-center mx-auto mb-6 text-rose-500">
+              <i data-lucide="calendar" class="w-8 h-8"></i>
+            </div>
+            <h3 class="text-2xl font-bold text-gray-800 mb-2">التاريخ</h3>
+            <p class="text-gray-600 font-serif text-lg mb-4">السبت، 11 أبريل 2026</p>
+            <a href="https://calendar.google.com/calendar/render?action=TEMPLATE&text=فرح+حنان+ووليد&dates=20260411T160000Z/20260411T210000Z&details=مستنيينكم+تنورونا+في+فرحنا!&location=نادى+نقابة+المهندسين+6+اكتوبر&sf=true&output=xml" target="_blank" class="inline-flex items-center gap-2 text-gold-600 hover:text-gold-700 font-bold text-sm">
+              <i data-lucide="calendar-plus" class="w-4 h-4"></i>
+              إضافة للتقويم
+            </a>
+          </div>
+          <div class="bg-white p-8 rounded-2xl shadow-xl border border-gold-100 transform hover:-translate-y-2 transition-transform">
+            <div class="w-16 h-16 bg-rose-100 rounded-full flex items-center justify-center mx-auto mb-6 text-rose-500">
+              <i data-lucide="clock" class="w-8 h-8"></i>
+            </div>
+            <h3 class="text-2xl font-bold text-gray-800 mb-2">الوقت</h3>
+            <p class="text-gray-600 font-serif text-lg">الاستقبال: 6:00 مساءً</p>
+            <p class="text-gray-500 font-serif text-base mt-2">الحفل: 7:00 م - 11:00 م</p>
+          </div>
+          <div class="bg-white p-8 rounded-2xl shadow-xl border border-gold-100 transform hover:-translate-y-2 transition-transform">
+            <div class="w-16 h-16 bg-rose-100 rounded-full flex items-center justify-center mx-auto mb-6 text-rose-500">
+              <i data-lucide="map-pin" class="w-8 h-8"></i>
+            </div>
+            <h3 class="text-2xl font-bold text-gray-800 mb-2">المكان</h3>
+            <p class="text-gray-600 font-serif text-lg mb-4">نادي نقابة المهندسين، 6 أكتوبر</p>
+            <a href="https://www.google.com/maps/search/?api=1&query=نادي+نقابة+المهندسين+6+اكتوبر" target="_blank" class="inline-block bg-gold-500 text-white px-6 py-2 rounded-full hover:bg-gold-600 transition-colors text-sm">عرض الخريطة</a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Prayer Section -->
+    <div id="prayer" class="py-32 bg-rose-50 px-4 relative overflow-hidden flex items-center justify-center min-h-[50vh]">
+      <div class="absolute top-0 left-0 w-32 h-32 bg-gold-200 rounded-full mix-blend-multiply filter blur-xl opacity-70 animate-blob"></div>
+      <div class="absolute top-0 right-0 w-32 h-32 bg-rose-200 rounded-full mix-blend-multiply filter blur-xl opacity-70 animate-blob animation-delay-2000"></div>
+      
+      <div class="max-w-5xl mx-auto text-center relative z-10 fade-in-up">
+        <div class="w-24 h-24 bg-white rounded-full flex items-center justify-center mx-auto mb-10 shadow-xl text-gold-500">
+          <i data-lucide="heart-handshake" class="w-12 h-12"></i>
+        </div>
+        <h2 class="text-4xl md:text-6xl font-serif text-gray-800 leading-relaxed mb-10 drop-shadow-sm">
+          "بَارَكَ اللَّهُ لَكُمَا، وَبَارَكَ عَلَيْكُمَا، وَجَمَعَ بَيْنَكُمَا فِي خَيْرٍ"
+        </h2>
+        <div class="w-32 h-1 bg-gold-400 mx-auto rounded-full"></div>
+      </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="bg-black text-white py-12 text-center">
+      <div class="max-w-4xl mx-auto px-4">
+        <h2 class="text-4xl font-script text-gold-400 mb-6">Hanan & Walid</h2>
+        <p class="text-gray-400 font-serif mb-8">شكراً لكل حد هيشاركنا فرحتنا</p>
+        <div class="flex justify-center gap-4 text-gold-300">
+          <i data-lucide="heart" class="fill-current"></i>
+          <i data-lucide="heart" class="fill-current"></i>
+          <i data-lucide="heart" class="fill-current"></i>
+        </div>
+        <p class="text-gray-600 text-sm mt-8">Made with ❤️ for the best couple</p>
+      </div>
+    </footer>
+
+    </div>
+
+    <script>
+      // --- Splash Screen Logic ---
+      function enterSite() {
+        const splash = document.getElementById('splash-screen');
+        const mainContent = document.getElementById('main-content');
+        
+        // Start Music
+        toggleMusic();
+        
+        // Fade out splash
+        splash.classList.add('opacity-0', 'pointer-events-none');
+        
+        // Fade in main content
+        mainContent.classList.remove('opacity-0', 'pointer-events-none');
+        
+        // Trigger hero animation again just in case
+        setTimeout(() => {
+            document.getElementById('hero-content').classList.add('visible');
+        }, 500);
+        
+        // Remove splash from DOM after transition
+        setTimeout(() => {
+          splash.remove();
+        }, 1000);
+      }
+
+      // --- Navbar Scroll Effect ---
+      window.addEventListener('scroll', () => {
+        const navbar = document.getElementById('navbar');
+        if (window.scrollY > 50) {
+          navbar.classList.add('bg-black/80', 'shadow-lg');
+          navbar.querySelector('.absolute').classList.remove('bg-black/30');
+        } else {
+          navbar.classList.remove('bg-black/80', 'shadow-lg');
+          navbar.querySelector('.absolute').classList.add('bg-black/30');
+        }
+      });
+
+      // --- Icons ---
+      lucide.createIcons();
+
+      // --- Countdown Logic ---
+      const targetDate = new Date('2026-04-11T18:00:00').getTime();
+      const countdownEl = document.getElementById('countdown');
+
+      function updateCountdown() {
+        const now = new Date().getTime();
+        const difference = targetDate - now;
+
+        if (difference > 0) {
+          const days = Math.floor(difference / (1000 * 60 * 60 * 24));
+          const hours = Math.floor((difference / (1000 * 60 * 60)) % 24);
+          const minutes = Math.floor((difference / 1000 / 60) % 60);
+          const seconds = Math.floor((difference / 1000) % 60);
+
+          countdownEl.innerHTML = `
+            ${createTimeBox(seconds, 'ثانية')}
+            ${createTimeBox(minutes, 'دقيقة')}
+            ${createTimeBox(hours, 'ساعة')}
+            ${createTimeBox(days, 'يوم')}
+          `;
+        }
+      }
+
+      function createTimeBox(value, label) {
+        return `
+          <div class="flex flex-col items-center mx-2 md:mx-4">
+            <div class="bg-white/20 backdrop-blur-md border border-white/30 w-16 h-16 md:w-24 md:h-24 rounded-xl flex items-center justify-center shadow-2xl">
+              <span class="text-2xl md:text-4xl font-bold text-white font-serif drop-shadow-md">${value}</span>
+            </div>
+            <span class="mt-2 text-sm md:text-base text-white font-medium drop-shadow-md">${label}</span>
+          </div>
+        `;
+      }
+
+      setInterval(updateCountdown, 1000);
+      updateCountdown();
+
+      // --- Music Player Logic ---
+      const audio = document.getElementById('bg-music');
+      const musicBtn = document.getElementById('music-btn');
+      const musicIcon = document.getElementById('music-icon');
+      let isPlaying = false;
+
+      function toggleMusic() {
+        if (isPlaying) {
+          audio.pause();
+          musicIcon.setAttribute('data-lucide', 'volume-x');
+        } else {
+          audio.play().catch(e => console.log("Autoplay blocked", e));
+          musicIcon.setAttribute('data-lucide', 'volume-2');
+        }
+        isPlaying = !isPlaying;
+        lucide.createIcons();
+      }
+
+      // --- Floating Hearts Logic ---
+      const heartsContainer = document.getElementById('hearts-container');
+      const heartCount = 20;
+
+      for (let i = 0; i < heartCount; i++) {
+        const heart = document.createElement('div');
+        heart.classList.add('heart');
+        heart.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" width="${20 + Math.random() * 40}" height="${20 + Math.random() * 40}" viewBox="0 0 24 24" fill="currentColor" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/></svg>`;
+        
+        heart.style.left = Math.random() * 100 + 'vw';
+        heart.style.animationDuration = (15 + Math.random() * 10) + 's';
+        heart.style.animationDelay = (Math.random() * 5) + 's';
+        
+        heartsContainer.appendChild(heart);
+      }
+
+      // --- Intersection Observer for Animations ---
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('visible');
+          }
+        });
+      }, { threshold: 0.1 });
+
+      document.querySelectorAll('.fade-in-up, .scale-in').forEach(el => observer.observe(el));
+
+      // Trigger hero animation on load
+      window.addEventListener('load', () => {
+        document.getElementById('hero-content').classList.add('visible');
+        document.querySelectorAll('#splash-screen .fade-in-up').forEach(el => el.classList.add('visible'));
+      });
+    </script>
+  </body>
+</html>
+
